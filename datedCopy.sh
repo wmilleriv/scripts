@@ -1,7 +1,7 @@
 #!/bin/bash
+stamp=$(date -I)
+basename -a $@ | xargs -i mv {} {}$stamp  
 
-name=$(basename $1)
-name+=$(date -I)
-cp $1 ./$name
+
 
 
