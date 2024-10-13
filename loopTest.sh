@@ -1,12 +1,17 @@
 #!/bin/bash
 
-for value in {1..10}
+
+for item in *; 
 do
-	if [ $(( $value %2  )) -eq 0 ]
-	then
-		
-		echo $value is even
+	if [[ -d $item ]]; then
+		noFiles=$(ls -l $item | wc -l)
+		echo "$item is a directory containing " $noFiles " files"
+
+	elif [[ -f $item ]]; then
+		size=$(du -h $item)
+    		echo "$item is a file of size: "$size
 	else
-		echo $value is odd	
+    		echo "$item is not valid"
+    	exit 1
 	fi
 done
