@@ -10,7 +10,7 @@ echo
 
 code=$( echo "security" | fold -w1 | shuf -n 5 | tr -d '\n' )
 echo $code
-for ((try=1;try<=8; try++))
+for ((try=0;try<=8; try++))
 do	
 	echo Try number $try
 	echo Enter five letters from \"security\"
@@ -25,13 +25,19 @@ do
 	match=0
 	charInCode=0
 
-	for ((i=1;i<5;i++))
+	for ((i=0;i<5;i++))
 	do
-
-		if [[ ${guess:$i:1} = ${code:$j:1} ]]
-		then
-			(( charInCode++ ))
-		fi
+		for (( j=0; j<5;j++ ))
+		do
+			if [[ ${guess:$i:1} = ${code:$j:1} ]]
+			then
+				(( charInCode++ ))
+				if [[ $i = $j ]] 
+				then
+					(( match++ ))
+				fi
+			fi
+		done
 
 	done
 	echo $code
