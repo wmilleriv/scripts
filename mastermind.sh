@@ -6,26 +6,10 @@ echo Please try to find the correct partial anagram of \"security\" to crack the
 echo
 echo
 
-readonly CODEPARTS=('s' 'e' 'c' 'u' 'r' 'i' 't' 'y')
-
-setCode(){
-	num=$RANDOM
-	firstNum=$(( $num / 4096 ))  
-	(( num -= ($firstNum * 4096) ))
-	secondNum=$(( $num / 512 ))
-	(( num -= ($secondNum * 512) ))
-	thirdNum=$(( $num / 64 ))
-	(( num -= ($thirdNum * 64) ))
-	fourthNum=$(( $num / 8 ))
-	(( num -= ($fourthNum * 8) ))
-	fifthNum=$num
-
-	code=${CODEPARTS[$firstNum]}${CODEPARTS[$secondNum]}${CODEPARTS[$thirdNum]}${CODEPARTS[$fourthNum]}${CODEPARTS[$fifthNum]}
 
 
-}
-setCode
-
+code=$( echo "security" | fold -w1 | shuf -n 5 | tr -d '\n' )
+echo $code
 for ((try=1;try<=8; try++))
 do	
 	echo Try number $try
@@ -41,19 +25,13 @@ do
 	match=0
 	charInCode=0
 
-	for ((i=1;i<=5;i++))
+	for ((i=1;i<5;i++))
 	do
-		if [ ${guess:$i:1} = ${code:$i:1} ]
+
+		if [[ ${guess:$i:1} = ${code:$j:1} ]]
 		then
-			(( match++ ))
+			(( charInCode++ ))
 		fi
-		for (( j=1;j<=5;j++))
-		do
-			if [ ${guess:$i:1} = ${code:$j:1} ]
-			then
-				(( charInCode++ ))
-			fi
-		done
 
 	done
 	echo $code
