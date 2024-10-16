@@ -20,9 +20,8 @@ setCode(){
 	(( num -= ($fourthNum * 8) ))
 	fifthNum=$num
 
-	string=${CODEPARTS[$firstNum]}${CODEPARTS[$secondNum]}${CODEPARTS[$thirdNum]}${CODEPARTS[$fourthNum]}${CODEPARTS[$fifthNum]}
+	code=${CODEPARTS[$firstNum]}${CODEPARTS[$secondNum]}${CODEPARTS[$thirdNum]}${CODEPARTS[$fourthNum]}${CODEPARTS[$fifthNum]}
 
-	echo $string
 
 }
 setCode
@@ -33,9 +32,21 @@ do
 	echo Enter five letters from \"security\"
 	read guess
 
-	if [ $guess = $solution ]
+	if [ $guess = $code ]
 	then
 		echo "Code Cracked!"
 		break;
 	fi
+
+	match=0
+
+	for ((i=1;i<5;i++))
+	do
+		if [ ${guess:$i:1} = ${code:$i:1} ]
+		then
+			(( match++ ))
+		fi
+	done
+
+	echo You have $match matching letters
 done
