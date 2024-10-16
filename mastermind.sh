@@ -39,14 +39,24 @@ do
 	fi
 
 	match=0
+	charInCode=0
 
-	for ((i=1;i<5;i++))
+	for ((i=1;i<=5;i++))
 	do
 		if [ ${guess:$i:1} = ${code:$i:1} ]
 		then
 			(( match++ ))
 		fi
-	done
+		for (( j=1;j<=5;j++))
+		do
+			if [ ${guess:$i:1} = ${code:$j:1} ]
+			then
+				(( charInCode++ ))
+			fi
+		done
 
+	done
+	echo $code
 	echo You have $match matching letters
+	echo $charInCode of the letters you guessed exist in the code
 done
