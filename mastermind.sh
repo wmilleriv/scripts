@@ -19,8 +19,12 @@ setCode(){
 	fourthNum=$(( $num / 8 ))
 	(( num -= ($fourthNum * 8) ))
 	fifthNum=$num
-}
 
+	string=${CODEPARTS[$firstNum]}${CODEPARTS[$secondNum]}${CODEPARTS[$thirdNum]}${CODEPARTS[$fourthNum]}${CODEPARTS[$fifthNum]}
+
+	echo $string
+
+}
 setCode
 
 for ((try=1;try<=8; try++))
