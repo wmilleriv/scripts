@@ -3,7 +3,7 @@
 #flatten grid into single array
 #     A1 A2 A3 B1 B2 B3 C1 C2 C3
 grid=("_" "_" "_" "_" "_" "_" "_" "_" "_")
-gridLabel=("A1" "A2" "A3" "B1" "B2" "B3" "C1" "C2" "C3")
+gridLabel=("A1" "B1" "C1" "A2" "B2" "C2" "A3" "B3" "C3")
 
 function showGrid () {
 	echo "   A  B  C  "
@@ -18,6 +18,13 @@ showGrid
 echo "Let's play Tic Tac Toe"
 echo "Would you like to be X or O? "
 read playerChar
+if [ $playerChar = "X" ]
+then
+	compChar="O"
+else
+	compChar="X"
+fi
+
 function playerTurn() {
 	echo "Pick a grid location to place your ${playerChar}" 
 	read box
@@ -29,8 +36,23 @@ function playerTurn() {
 		fi
 	done
 	showGrid
+	computerTurn
 }
 
+function computerTurn() {
+	#if first turn choose a corner, if not and middle is empty, choose middle
+	if [ ${gridLabel[@]} = "_" ]
+	then
+		grid[0]=$compChar
+	elif [ ${grid[4]} = "_" ]
+	then
+
+		grid[4]=$compChar
+	fi
+
+	showGrid
+	playerTurn
+}
 function rockPaperScissors() {
 	echo "type r for rock, p for paper or s for scissors"
 	read playerChoice
