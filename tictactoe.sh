@@ -1,5 +1,35 @@
 #!/bin/bash
 
+#flatten grid into single array
+#     A1 A2 A3 B1 B2 B3 C1 C2 C3
+grid=("_" "_" "_" "_" "_" "_" "_" "_" "_")
+gridLabel=("A1" "A2" "A3" "B1" "B2" "B3" "C1" "C2" "C3")
+
+function showGrid () {
+	echo "   A  B  C  "
+	echo " 1 ${grid[0]}|${grid[1]}|${grid[2]}   "
+	echo "   -------  "
+	echo " 2 ${grid[3]}|${grid[4]}|${grid[5]}   "
+	echo "   -------  "
+	echo " 3 ${grid[6]}|${grid[7]}|${grid[8]}   "
+}
+
+showGrid
+echo "Let's play Tic Tac Toe"
+echo "Would you like to be X or O? "
+read playerChar
+function playerTurn() {
+	echo "Pick a grid location to place your ${playerChar}" 
+	read box
+	for (( i=0;i<9;i++ ))
+	do
+		if [ $box = ${gridLabel[$i]} ]
+		then
+			grid[$i]=$playerChar
+		fi
+	done
+	showGrid
+}
 
 function rockPaperScissors() {
 	echo "type r for rock, p for paper or s for scissors"
@@ -14,7 +44,7 @@ function rockPaperScissors() {
 		if [ $playerChoice = p ]
 		then
 			echo "Congratulations you won"
-			#playerTurn #function to be added later
+			playerTurn #function to be added later
 		fi
 		if [ $playerChoice = s ]
 		then
@@ -35,7 +65,7 @@ function rockPaperScissors() {
 		if [ $playerChoice = s ]
 		then
 			echo "Congratulations you won"
-			#playerTurn #function to be added later
+			playerTurn #function to be added later
 		fi
 		if [ $playerChoice = r ]
 		then
@@ -56,7 +86,7 @@ function rockPaperScissors() {
 		if [ $playerChoice = r ]
 		then
 			echo "Congratulations you won"
-			#playerTurn #function to be added later
+			playerTurn #function to be added later
 		fi
 		if [ $playerChoice = p ]
 		then
@@ -73,15 +103,8 @@ function rockPaperScissors() {
 
 }
 
-
-echo "   A  B  C  "
-echo " 1   | |    "
-echo "   -------  "
-echo " 2   | |    "
-echo "   -------  "
-echo " 3   | |    "
+#rockPaperScissors
 
 
-echo "Let's play Tic Tac Toe"
-rockPaperScissors
+playerTurn
 

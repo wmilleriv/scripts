@@ -9,7 +9,7 @@ echo
 
 
 code=$( echo "security" | fold -w1 | shuf -n 5 | tr -d '\n' )
-echo $code
+#echo $code
 for ((try=0;try<=8; try++))
 do	
 	echo Try number $try
@@ -40,7 +40,7 @@ do
 		done
 
 	done
-	echo $code
+#	echo $code
 	echo You have $match matching letters
 	echo $charInCode of the letters you guessed exist in the code
 done
