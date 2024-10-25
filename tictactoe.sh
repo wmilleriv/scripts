@@ -1,17 +1,19 @@
 #!/bin/bash
 
 #flatten grid into single array
-#     A1 A2 A3 B1 B2 B3 C1 C2 C3
-grid=("_" "_" "_" "_" "_" "_" "_" "_" "_")
+#     A1   B1  C1  A2  B2  C2  A3  B3  C3
+grid=(" " " " " " " " " " " " " " " " " ")
 gridLabel=("A1" "B1" "C1" "A2" "B2" "C2" "A3" "B3" "C3")
+#assign each space a prime number so board can be calculated from products
+gridKey=(2 3 5 7 11 13 17 19 23) 
 
 function showGrid () {
 	echo "   A  B  C  "
-	echo " 1 ${grid[0]}|${grid[1]}|${grid[2]}   "
+	echo " 1  ${grid[0]}|${grid[1]}|${grid[2]}   "
 	echo "   -------  "
-	echo " 2 ${grid[3]}|${grid[4]}|${grid[5]}   "
+	echo " 2  ${grid[3]}|${grid[4]}|${grid[5]}   "
 	echo "   -------  "
-	echo " 3 ${grid[6]}|${grid[7]}|${grid[8]}   "
+	echo " 3  ${grid[6]}|${grid[7]}|${grid[8]}   "
 }
 
 showGrid
@@ -30,9 +32,14 @@ function playerTurn() {
 	read box
 	for (( i=0;i<9;i++ ))
 	do
-		if [ $box = ${gridLabel[$i]} ]
+		if [ $box = ${gridLabel[$i]} ] && [ ${grid[$i]}=" " ]
 		then
 			grid[$i]=$playerChar
+			(( playerHash *= gridKey[$i] )) 
+		elif [ ${grid[$i]} -ne  " " ]
+		then
+			echo "Invalid selection"
+			playerTurn
 		fi
 	done
 	showGrid
@@ -41,13 +48,53 @@ function playerTurn() {
 
 function computerTurn() {
 	#if first turn choose a corner, if not and middle is empty, choose middle
-	if [ ${gridLabel[@]} = "_" ]
+	if [[ ${grid[@]} = " " ]]
 	then
 		grid[0]=$compChar
-	elif [ ${grid[4]} = "_" ]
+		(( compHash *= gridKey[0] ))
+	elif [[ ${grid[4]} = " " ]]
 	then
 
 		grid[4]=$compChar
+		(( compHash *= gridKey[4] ))
+
+	elif [[ !(($playerHash%6)) ]] && [[ gridKey[2] == " " ]]
+	then
+		grid[2]=$compChar
+		(( compHash*=gridKey[2] ))
+	
+	elif [[ !(( $playerHash % 10 ))  ]] && [[ gridKey[1] == " " ]]
+	then
+		grid[2]=$compChar
+		(( compHash*=gridKey[2] ))
+	
+	elif [[ !(( $playerHash % 15 )) ]] && [[ gridKey[0] == " " ]]
+	then
+		grid[2]=$compChar
+		(( compHash*=gridKey[2] ))
+
+	elif [[ !(( $playerHash % 77 ))  ]] && [[ gridKey[5] == " " ]]
+	then
+		grid[2]=$compChar
+		(( compHash*=gridKey[2] ))
+	elif [[ !(( $playerHash % 143 ))  ]] && [[ gridKey[3] == " " ]]
+	then
+		grid[2]=$compChar
+		(( compHash*=gridKey[2] ))
+	elif [[ !(( $playerHash % 323 ))  ]] && [[ gridKey[8] == " " ]]
+	then
+		grid[2]=$compChar
+		(( compHash*=gridKey[2] ))
+
+	elif [[ !(( $playerHash % 391 )) ]] && [[ gridKey[7] == " " ]]
+	then
+		grid[2]=$compChar
+		(( compHash*=gridKey[2] ))
+	elif [[ !(( $playerHash % 437 ))  ]] && [[ gridKey[6] == " " ]]
+	then
+		grid[2]=$compChar
+		(( compHash*=gridKey[2] ))
+
 	fi
 
 	showGrid
