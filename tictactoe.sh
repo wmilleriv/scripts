@@ -36,7 +36,7 @@ function playerTurn() {
 		then
 			grid[$i]=$playerChar
 			(( playerHash *= gridKey[$i] )) 
-		elif [ ${grid[$i]} -ne  " " ]
+		elif [[ ${grid[$i]} != " " ]]
 		then
 			echo "Invalid selection"
 			playerTurn
@@ -63,34 +63,34 @@ function computerTurn() {
 		grid[2]=$compChar
 		(( compHash*=gridKey[2] ))
 	
-	elif [[ !(( $playerHash % 10 ))  ]] && [[ gridKey[1] == " " ]]
+	elif [[ !(( $playerHash%10 ))  ]] && [[ gridKey[1] == " " ]]
 	then
 		grid[2]=$compChar
 		(( compHash*=gridKey[2] ))
 	
-	elif [[ !(( $playerHash % 15 )) ]] && [[ gridKey[0] == " " ]]
+	elif [[ !(( $playerHash%15 )) ]] && [[ gridKey[0] == " " ]]
 	then
 		grid[2]=$compChar
 		(( compHash*=gridKey[2] ))
 
-	elif [[ !(( $playerHash % 77 ))  ]] && [[ gridKey[5] == " " ]]
+	elif [[ !(($playerHash%77 ))  ]] && [[ gridKey[5] == " " ]]
 	then
 		grid[2]=$compChar
 		(( compHash*=gridKey[2] ))
-	elif [[ !(( $playerHash % 143 ))  ]] && [[ gridKey[3] == " " ]]
+	elif [[ !(( $playerHash%143 ))  ]] && [[ gridKey[3] == " " ]]
 	then
 		grid[2]=$compChar
 		(( compHash*=gridKey[2] ))
-	elif [[ !(( $playerHash % 323 ))  ]] && [[ gridKey[8] == " " ]]
+	elif [[ !(( $playerHash%323 ))  ]] && [[ gridKey[8] == " " ]]
 	then
 		grid[2]=$compChar
 		(( compHash*=gridKey[2] ))
 
-	elif [[ !(( $playerHash % 391 )) ]] && [[ gridKey[7] == " " ]]
+	elif [[ !(( $playerHash%391 )) ]] && [[ gridKey[7] == " " ]]
 	then
 		grid[2]=$compChar
 		(( compHash*=gridKey[2] ))
-	elif [[ !(( $playerHash % 437 ))  ]] && [[ gridKey[6] == " " ]]
+	elif [[ !(( $playerHash%437 ))  ]] && [[ gridKey[6] == " " ]]
 	then
 		grid[2]=$compChar
 		(( compHash*=gridKey[2] ))
